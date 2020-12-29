@@ -1,7 +1,6 @@
 using HorizonSideRobots
 
-function perimetr_barriers!(r::Robot)#aac
-    count=0
+function perimetr_barriers!(r::Robot)
     count_west=0
     step_check=0
     wall=false
