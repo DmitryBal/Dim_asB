@@ -2,7 +2,7 @@ using HorizonSideRobots
 
 function Stripes!(r::Robot,num_passes::Integer, along_side::HorizonSide, across_side::HorizonSide,num_start_passes=0::Integer) 
     side = get_side(along_side,across_side)
-    nun_steps = [get_num_movements!(r,side[i]) for i in 1:2]#ax
+    nun_steps = [get_num_movements!(r,side[i]) for i in 1:2]
 
     movements_if_posible!(r, along_side, num_start_passes) || return
     along_mark!(r,along_side)
