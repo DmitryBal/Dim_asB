@@ -329,33 +329,21 @@ public:
      }
 	virtual Element<T>* push(T value)
 	{
-        if(!this->isEmpty())
-        {
-            /*Element<T>* newHead = new Element<T>(value);
-            Element<T>* old_next = this->head->next;
-            this->head->next = this->head;
-            this->head->next->prev = newHead;
-            this->head->next->next = old_next;
-            this->head = newHead;*/
-            Element<T>* current = new Element<T>(value);
-            current->next = this->head;
-            this->head->next->prev = current;
-            this->head = current;
-        }
+        Element<T>* current = new Element<T>(value);
+        if(this->head == NULL)
+            this->tail = this->head = current;
         else
         {
-            this->head = new Element<T>(value);
-            this->head->next = NULL;
-            this->head->prev = NULL;
-            this->head = this->tail;
-            
+            current->next = this->head;
+            this->head->prev = current;
+            this->head = current;
         }
-        (this->count)++;
+        this->count++;
         return this->head;
     }
     virtual Element<T>* pop()
 	{
-		if (this->isEmpty())
+		/*if (this->isEmpty())
 		{
 			return NULL;
 		}
@@ -365,15 +353,36 @@ public:
 		{
 			this->head = NULL;
 			this->tail = NULL;
+			return result;
 		}
 		else
 		{
-			this->tail = this->tail->prev;
-			this->tail->next = NULL;
-		}
-		this->count++;
-		result->prev = NULL;
-		return result;
+		    this->head = this->tail;
+		    this->tail =  this->head->next;
+		   for(int i = 0; i <this->count - 1;++i)*/
+		
+    	this->tail = this->head;
+        if(this->tail) 
+        {
+            Element<T>* temp = nullptr;
+            while(this->tail->next)
+            {
+                temp = this->tail;
+                this->tail = this->tail->next;
+            }
+            if(temp) 
+            {
+                temp->next = nullptr;
+            }
+            else
+            {
+                this->head = nullptr;
+            }
+            delete this->tail;
+        }
+    return this->head;
+	//	this->count--;
+		//return result;
 	}
 	Queue& operator=(const Queue& Q)
 	{
@@ -523,16 +532,17 @@ int main()
 		Name2.name = "Russia";
 		G.push(Name1);
 		G.push(Name2);
-
+        
+        G.pop();
 		G.remove(1);
 
 		G.insert(G.get_head(), Name1);
 
         Queue<Goverment>* test1 = G.Filter_Recursive(Find_Name, string("Sweden"));
-	    Queue<Goverment> test2 = G.Filter(Find_Name, string("Sweden"));
+        Queue<Goverment> test2 = G.Filter(Find_Name, string("Sweden"));
 
-		G.print();
-		test2.print();
+		//G.print();
+	//	test2.print();
 	}
     catch (...)
 	{
@@ -572,7 +582,7 @@ int main()
 		}
 		else
 		{
-			cout << "Error";
+			cout << "Error" << "\n";
 		}
 		
 		ifstream fin("text.txt");
@@ -586,7 +596,7 @@ int main()
 			cout << "Error";
 		}
 
-		load.print();
+		//load.print();
 	}
 	catch (...)
 	{
