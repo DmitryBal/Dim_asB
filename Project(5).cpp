@@ -391,29 +391,33 @@ int main()
     Matrix<double> M1(3,1);
     M1(0,0)= 2; M1(1,0) = 1; M1(2,0)= 3;
     
-    Matrix<double> M2(3,1);
-    M2(0,0)= 3; M2(1,0) = 1; M2(2,0)= 2;
-    ofstream out1("test_OOP5.txt");
-    if (out1.is_open()) 
+    //Matrix<double> M2(3,1);
+    //M2(0,0)= 3; M2(1,0) = 1; M2(2,0)= 2;
+    
+    int n;
+    cout << "Введите количество матриц:";
+    cin >> n;
+    ofstream out("test_OOP5.txt");
+    if (out.is_open()) 
     {
-        out1 << M1;
-        out1 << M2;
-        out1.close();
+        for(int i = 0; i < n;i++)
+        {
+            out << M1 <<"\n";
+        }
+      out << answer << "\n";
+	  out.close();
     }
     
-    ofstream out2("test_OOP5.txt");
-	if(out2.is_open())
-	{
-	  out2 << answer << "\n";
-	  out2.close();
-	}
-	
 	ifstream in("test_OOP5.txt");
 	if(in.is_open()) 
 		{
-    		Matrix<double> txt(in);
+		     in >> n;
+		     for(int i = 0; i < n;i++)
+            {
+                Matrix<double> txt(in);
+                txt.print();
+            }
         	in.close();
-        	txt.print();
 		}
 
 	cout << '\n';
